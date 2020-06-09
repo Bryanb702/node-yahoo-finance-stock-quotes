@@ -1,0 +1,30 @@
+{
+  "name": "stock-portfolio-optimization",
+  "version": "1.0.0",
+  "description": "Node based stock portfolio optimization program using machine learning",
+  "main": "index.js",
+  "scripts": {
+    "dev": "env-cmd -f ./env/dev.env node ./src/index",
+    "pretest": "./node_modules/.bin/eslint --fix",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bryanb702/node-stock-portfolio-optimization.git"
+  },
+  "author": "Bryan Bullard",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bryanb702/node-stock-portfolio-optimization/issues"
+  },
+  "homepage": "https://github.com/Bryanb702/node-stock-portfolio-optimization#readme",
+  "dependencies": {
+    "node-rest-client": "^3.1.0",
+    "request": "^2.88.2",
+    "yahoo-finance-scraper": "0.0.3"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "eslint": "^7.2.0"
+  }
+}
