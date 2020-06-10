@@ -41,7 +41,6 @@ class HttpClient {
 
         } else {
 
-          console.log(response.statusCode);
           clientResponse = {
             result: response.statusCode,
             data: null,

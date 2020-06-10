@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "env-cmd -f ./env/dev.env node ./src/index",
     "pretest": "./node_modules/.bin/eslint --fix",
+    "test": "env-cmd -f ./env/dev.env mocha src/**/*.*",
     "start": "node ."
   },
   "repository": {
@@ -24,7 +25,10 @@
     "yahoo-finance-scraper": "0.0.3"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "env-cmd": "^10.1.0",
-    "eslint": "^7.2.0"
+    "eslint": "^7.2.0",
+    "sinon": "^9.0.2"
   }
 }

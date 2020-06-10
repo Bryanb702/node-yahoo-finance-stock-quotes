@@ -1,8 +1,8 @@
 
 'use strict';
 
-const yahooAPI = require('./lib/yahoo-finance-api');
-const yahooQuote = require('./lib/yahoo-finance-quote');
+const yahooAPI = require('./lib/yahooFinanceApi');
+const yahooQuote = require('./lib/yahooFinanceQuote');
 
 (async () => {
 
@@ -10,20 +10,20 @@ const yahooQuote = require('./lib/yahoo-finance-quote');
     try {
 
         // Example showing date range
-        quote = await yahooAPI.quoteDetail('MSFT', '2019/06/01', '2020/06/09', '1d')
+        // quote = await yahooAPI.quoteDetail('MSFT', '2019/06/01', '2020/06/09', '1d')
 
-        if (quote) {
-            console.log(quote);
-        }
+        // if (quote) {
+        //     console.log(quote);
+        // }
 
-        // Example showing date range
-        quote = await yahooAPI.quoteDetail('MSFT', '2019/06/01', '2020/06/09', '3mo')
+        // // Example showing date range
+        // quote = await yahooAPI.quoteDetail('MSFT', '2019/06/01', '2020/06/09', '3mo')
 
-        if (quote) {
-            console.log(quote);
-        }
+        // if (quote) {
+        //     console.log(quote);
+        // }
 
-        // Example to get quote details for the current day
+        // // Example to get quote details for the current day
         quote = await yahooAPI.quoteDetail('AMZN')
 
         if (quote) {

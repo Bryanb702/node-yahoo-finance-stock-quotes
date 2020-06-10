@@ -19,11 +19,10 @@ module.exports.quoteDetail = async function(symbol, rangeStart = new Date(), ran
 
   let url = `${process.env.YAHOO_FINANCE_CHART_URL}/${symbol}?${querystring}`;
 
-  console.log(url);
   try {
     let response = await httpClient.get(url, {});
   
-    if (response.result !== 404) {
+    if (response.result !== 404 && response.result !== 400) {
       let quoteDetail = {
         meta: response.data.chart.result[0].meta,
         detail: await prettyQuote(response.data.chart.result[0])
@@ -32,12 +31,12 @@ module.exports.quoteDetail = async function(symbol, rangeStart = new Date(), ran
       return quoteDetail;
 
     } else {
-      throw new Error(`Unable to retrieve quote: ${JSON.stringify(response.error)}`);
+      throw new Error(response.error);
+      // throw new Error(`Unable to retrieve quote: ${JSON.stringify(response.error)}`);
     }
   }
   catch(e) {
-    console.log(e);
-    return false;
+    return e;
   }
 }
 
