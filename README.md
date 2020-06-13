@@ -1,23 +1,21 @@
-# node-stock-portfolio-optimization
-Stock portfolio optimization through machine learning
+# node-yahoo-finance-stock-quotes
+Provides APIs to call Yahoo finance chart API and a screen scraper of the Yahoo Finance Quote page.  Should probably be made 
+into an npm library.
 
-The node-stock-portfolio-optiization is a set of libraries that can be called to retrieve stock quotes Yahoo Finance.
-the library provides two different methods to get data.
+##  index.js provided to give example calls
 
-## const yahooAPI = require('yahoo-finance-api');
-
+## usage
 This is the more robust call which allows for retrieving current trading day information as well as historical information.  This
 method calls the Yahoo Finance chart API
 
-parameters: symbol, startDate, endDate, interval
+const yahooAPI = require('yahoo-finance-api');
+yahooAPI.getQuote(symbol, startDate, endDate, interval);
 
 symbol is the stock ticker symbol to lookup
 startDate is the starting date for which to retrieve historical data
 endDate is the end date for which to retrieve historical data
-interval is the interval on which to summarize data.  Allowable values are (1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max). Understanding
+interval is the interval on which to summarize data.  For valid values see validRanges in the response below. Understanding
 the rollups associated with intervals can be tricky but it works.
-
-Example calls can be found in index.js
 
 ## result
 
@@ -109,8 +107,5 @@ yahooQuote.currentPriceQuote('AMZN')
 ##result: 
     { symbol: 'AMZN', price: 2600.86 }
 
-
-More information on the Yahoo API can be found at:
-https://stackoverflow.com/questions/44030983/yahoo-finance-url-not-working
 
 

@@ -45,6 +45,7 @@ describe('yahooFinanceApi', function() {
         expect(quote.detail).to.have.length(4);
     });
 
+    // This test will fail when run on weekends and holidays
     it("should accept symbol name only and return current quote", async function() {
 
         let symbol = 'MSFT';
