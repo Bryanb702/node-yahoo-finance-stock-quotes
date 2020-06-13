@@ -10,34 +10,28 @@ module.exports.quoteDetail = async function(symbol, rangeStart = new Date(), ran
 
   // Below we add one day to the rangeEnd date as the API returns dates < the rangeEnd date provided.
   const query = {
-    period1: Math.floor(new Date(rangeStart).getTime()/1000),
-    period2: Math.floor(new Date(appUtils.addDays(rangeEnd, 1)).getTime()/1000),
+    period1: Math.floor(new Date(rangeStart).getTime() / 1000),
+    period2: Math.floor(new Date(appUtils.addDays(rangeEnd, 1)).getTime() / 1000),
     interval
   }
 
-  let querystring = Object.keys(query).map(key=>`${key}=${query[key]}`).join('&');
+  let querystring = Object.keys(query).map(key => `${key}=${query[key]}`).join('&');
 
   let url = `${process.env.YAHOO_FINANCE_CHART_URL}/${symbol}?${querystring}`;
 
-  try {
-    let response = await httpClient.get(url, {});
-  
-    if (response.result !== 404 && response.result !== 400) {
-      let quoteDetail = {
-        meta: response.data.chart.result[0].meta,
-        detail: await prettyQuote(response.data.chart.result[0])
-      }
+  let response = await httpClient.get(url, {});
 
-      return quoteDetail;
+  if (response instanceof Error) {
+    throw response;
+  }
 
-    } else {
-      throw new Error(response.error);
-      // throw new Error(`Unable to retrieve quote: ${JSON.stringify(response.error)}`);
-    }
+  let quoteDetail = {
+    meta: response.data.chart.result[0].meta,
+    detail: await prettyQuote(response.data.chart.result[0])
   }
-  catch(e) {
-    return e;
-  }
+
+  return quoteDetail;
+
 }
 
 // Consolidate the return data into a single array of objects by interval.

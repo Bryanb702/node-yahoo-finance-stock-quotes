@@ -2,8 +2,11 @@
 'use strict';
 
 const chai = require('chai');
+const chaiAspromised = require('chai-as-promised');
 const expect = chai.expect;
 const sinon = require('sinon');
+
+chai.use(chaiAspromised);
 
 const yahooApi = require('./yahooFinanceApi');
 
@@ -53,18 +56,19 @@ describe('yahooFinanceApi', function() {
 
     it("should throw error - no parameters provided", async function() {
 
-        let symbol = 'MSFTT';
-        let quote = await yahooApi.quoteDetail();
+        let symbol = 'MSFT';
 
-        expect(new Error).to.be.an('error');
+        await expect(yahooApi.quoteDetail()).to.be.rejected;
+        await expect(yahooApi.quoteDetail()).to.be.rejectedWith('Request response error');
+
     });
 
     it("should throw error - missing period date", async function() {
 
         let symbol = 'ADBE';
-        let quote = await yahooApi.quoteDetail(symbol, '2020/06/05', '1d');
 
-        expect(new Error).to.be.an('error');
+        await expect(yahooApi.quoteDetail(symbol, '2020/06/05', '1d')).to.be.rejected;
+        await expect(yahooApi.quoteDetail()).to.be.rejectedWith('Request response error');
     });
 });
 

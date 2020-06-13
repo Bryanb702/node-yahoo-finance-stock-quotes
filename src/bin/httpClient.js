@@ -7,6 +7,7 @@ class HttpClient {
   constructor(headers = null) {
 
     this.client = new Client();
+    this.headers = headers;
 
   }
 
@@ -21,7 +22,7 @@ class HttpClient {
 
       this.client.get(url, args, function (data, response) {
 
-        let clientResponse = {};
+        let responseObj = {};
 
         // parse response body as js object
         if (Buffer.isBuffer(data)) {
@@ -29,27 +30,22 @@ class HttpClient {
         }
 
         // Check for good response status code
-        if (response.statusCode === 201 || response.statusCode === 200) {
+        if (response.statusCode === 200 || response.statusCode === 201) {
 
-          clientResponse = {
+          responseObj = {
             result: response.statusCode,
             data: data,
             error: null
           }
 
-          resolve(clientResponse);
+          resolve(responseObj);
 
         } else {
-
-          clientResponse = {
-            result: response.statusCode,
-            data: null,
-            error: data
-          }
-
-          reject(clientResponse);
+          let error = new Error('Request response error');
+          error.data = data;
+          error.statusCode = response.statusCode;
+          reject(error);
         }
-
       });
     }).catch(error => { return error });
   }
@@ -65,7 +61,7 @@ class HttpClient {
 
       this.client.post(url, args, function(data, response) {
 
-        let clientResponse = {};
+        let responseObj = {};
 
         // parse response body as js object
         if (Buffer.isBuffer(data)) {
@@ -75,27 +71,22 @@ class HttpClient {
         // Check for good response status code
         if (response.statusCode === 201 || response.statusCode === 200) {
 
-          clientResponse = {
+          responseObj = {
             result: response.statusCode,
             data: data,
             error: null
           }
 
-          resolve(clientResponse);
+          resolve(responseObj);
 
         } else {
-
-          clientResponse = {
-            result: response.statusCode,
-            data: null,
-            error: data
-          }
-
-          reject(clientResponse);
+          let error = new Error('Server response error');
+          error.data = data;
+          error.statusCode = response.statusCode;
+          reject(error);
         }
-
       });
-    }).catch(error => { console.log(error); });
+    }).catch(error => { return error });
   }
 
   async patch(url, postData) {
@@ -109,7 +100,7 @@ class HttpClient {
 
       this.client.patch(url, args, function(data, response) {
 
-        let clientResponse = {};
+        let responseObj = {};
 
         // parse response body as js object
         if (Buffer.isBuffer(data)) {
@@ -119,27 +110,23 @@ class HttpClient {
         // Check for good response status code
         if (response.statusCode === 201 || response.statusCode === 200) {
 
-          clientResponse = {
+          responseObj = {
             result: response.statusCode,
             data: data,
             error: null
           }
 
-          resolve(clientResponse);
+          resolve(responseObj);
 
         } else {
 
-          clientResponse = {
-            result: response.statusCode,
-            data: null,
-            error: data
-          }
-
-          reject(clientResponse);
+          let error = new Error('Server response error');
+          error.data = data;
+          error.statusCode = response.statusCode;
+          reject(error);
         }
-
       });
-    }).catch(error => { console.log(error); });
+    }).catch(error => { return error });
   }
 }
 
